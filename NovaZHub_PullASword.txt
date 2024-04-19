@@ -1,0 +1,114 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
+local Window = OrionLib:MakeWindow({Name = "Nova Z Hub v1.0.0 | Pull A Sword", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Section = Tab:AddSection({
+	Name = "Main"
+})
+
+
+Tab:AddButton({
+	Name = "Auto Claim Credits",
+	Callback = function()
+local credits_currency = 1
+
+while true do
+wait()
+game:GetService("ReplicatedStorage").GetCreditsEvent:FireServer()
+credits_currency = credits_currency + 1
+print(credits_currency)
+end
+      print("button pressed")
+    end
+})
+
+Tab:AddButton({
+	Name = "Auto Claim Choco Eggs",
+	Callback = function()
+local event_eggs = 1
+
+while true do
+wait()
+game:GetService("ReplicatedStorage").GameClient.Events.RemoteEvent.EventEggEvent:FireServer()
+event_eggs = event_eggs + 1
+print(event_eggs)
+end
+
+      print("button pressed")
+   end
+})
+
+Tab:AddButton({
+	Name = "Auto Click",
+	Callback = function()
+local click = 1
+
+while true do
+wait()
+local args = {
+    [1] = "Click",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").ClickEvent:FireServer(unpack(args))
+
+click = click + 1
+print(click)
+end
+
+      print("button pressed")
+  	end
+})
+
+Tab:AddButton({
+	Name = "Auto Rebirth",
+	Callback = function()
+local rebirth = 1
+
+while true do
+wait()
+local args = {
+    [1] = "MAX"
+}
+
+game:GetService("ReplicatedStorage").GameClient.Events.RemoteEvent.RebirthEvent:FireServer(unpack(args))
+
+
+rebirth = rebirth + 1
+print(rebirth)
+end
+
+      print("button pressed")
+  	end
+})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Section = Tab:AddSection({
+	Name = "Misc"
+})
+
+Tab:AddButton({
+	Name = "Rejoin",
+	Callback = function()
+local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ts:Teleport(game.PlaceId, p)
+})
+
+Tab:AddButton({
+	Name = "ServerHop",
+	Callback = function()
+local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+
+module:Teleport(game.PlaceId)
+})
