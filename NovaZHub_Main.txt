@@ -1,0 +1,45 @@
+-- Anti cheat bypass ( works on most games )
+-- Made by ORZ_28 :>
+local plr = game:GetService("Players").LocalPlayer
+
+getgenv().Anti = true -- Re-Execute if you change it
+
+local Anti
+Anti = hookmetamethod(game, "__namecall", function(self, ...)
+        if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
+            return warn("[ANTI-KICK By ORZ_28] Client Tried To Call Kick Function On LocalPlayer")
+        end
+        return Anti(self, ...)
+    end)
+
+local discord = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkireScripts/Ouxie/main/Utils/Discord%20Inviter/DiscordInviter.lua"))()
+discord:invite("https://discord.com/invite/RgAwJBem2C", "Nova Z Hub", function()
+    -- HUB Function
+-- Made by OrzScript
+
+-- Detect Place Id // Load Good Game
+
+if game.PlaceId == 13827198708 then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/OrzScript/NovaZ/main/NovaZHub_PullASword.txt",true))()
+end
+
+if game.PlaceId == 6783611814 then -- Build a boat to survive
+  
+end
+
+if game.PlaceId == 13127800756 then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/OrzScript/NovaZ/main/NovaZHub_ArmWrestleSimulator.txt",true))()
+end
+
+end)
+-- discord:invite(invite_link, server_name, call)
+--[[
+    Recoded the whole thing to make it simpler to read/understant
+    if you want to edit the source go ahead just please give credit.
+
+    credits:
+        Skire (x6x_0) - coding and everything (creator of ouxie)
+
+    ! MADE BY OUXIE ! 
+]]
+
