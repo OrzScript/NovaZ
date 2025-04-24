@@ -1,0 +1,152 @@
+-- Gui2Lua Remake
+-- Version: 3.5
+--< Functions >--
+local utils = {}
+utils.create = function(class, prop)
+	local obj = Instance.new(class)
+
+	for prop, v in next, prop do
+		obj[prop] = v
+	end
+
+	pcall(function()
+		obj.AutoButtonColor = false
+	end)
+	
+	return obj
+end
+
+--< Instances >--
+
+local NovaZNotSupported = utils.create("ScreenGui", {
+	Name = "NovaZNotSupported",
+	Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui"),
+	ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+})
+
+local Frame = utils.create("Frame", {
+	Parent = NovaZNotSupported,
+	BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+	BorderColor3 = Color3.fromRGB(0, 0, 0),
+	BorderSizePixel = 0,
+	Position = UDim2.new(0.87, 0, 0.000000899, 0),
+	Size = UDim2.new(0, 274, 0, 72),
+})
+
+local Bar = utils.create("Frame", {
+	Name = "Bar",
+	Parent = Frame,
+	BackgroundColor3 = Color3.fromRGB(212, 0, 0),
+	BorderColor3 = Color3.fromRGB(0, 0, 0),
+	BorderSizePixel = 0,
+	Position = UDim2.new(0, 0, 0.939999998, 0),
+	Size = UDim2.new(0, 274, 0, 4),
+})
+
+utils.create("TextLabel", {
+	Parent = Frame,
+	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	BackgroundTransparency = 1.000,
+	BorderColor3 = Color3.fromRGB(0, 0, 0),
+	BorderSizePixel = 0,
+	Size = UDim2.new(0, 209, 0, 67),
+	FontFace = Font.new("rbxassetid://12187365977", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+	Text = "This game is not supported!",
+	TextColor3 = Color3.fromRGB(255, 0, 0),
+	TextScaled = true,
+	TextSize = 14.000,
+	TextWrapped = true,
+})
+
+utils.create("ImageLabel", {
+	Name = "Icon",
+	Parent = Frame,
+	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	BackgroundTransparency = 1.000,
+	BorderColor3 = Color3.fromRGB(0, 0, 0),
+	BorderSizePixel = 0,
+	Position = UDim2.new(0.762773752, 0, 0, 0),
+	Size = UDim2.new(0, 65, 0, 67),
+	Image = "http://www.roblox.com/asset/?id=107075188558816",
+})
+
+local Sound = utils.create("Sound", {
+	Name = "Sound",
+	Parent = Frame,
+	Volume = 0.5,
+	Looped = false,
+	Playing = false,
+	SoundId = "rbxassetid://17582299860",
+})
+
+local Swipe = utils.create("Sound", {
+	Name = "Swipe",
+	Parent = Frame,
+	Volume = 0.5,
+	Looped = false,
+	Playing = false,
+	SoundId = "rbxassetid://1837834122",
+})
+
+
+
+--< Properties >--
+
+
+local Frame = Frame
+local TweenService = game:GetService("TweenService")
+
+local UISize = Frame.AbsoluteSize.Y
+Frame.AnchorPoint = Vector2.new(0.5, 0)
+
+-- Save the original (in-Studio) position so the tween knows where to land
+local originalPos = Frame.Position
+
+-- Move the frame offscreen above before tweening in
+Frame.Position = UDim2.new(originalPos.X.Scale, originalPos.X.Offset, 0, -UISize - 50)
+
+-- Tween definitions
+local tweenIn = TweenService:Create(Frame, TweenInfo.new(
+	0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out
+	), { Position = originalPos })
+
+local tweenOut = TweenService:Create(Frame, TweenInfo.new(
+	0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In
+	), { Position = UDim2.new(originalPos.X.Scale, originalPos.X.Offset, 0, -UISize - 50) })
+
+function ShowFrame()
+	tweenIn:Play()
+end
+
+local TweenService = game:GetService("TweenService")
+local Bar = Bar -- or wherever you have your Bar
+
+Bar.Size = UDim2.new(0, 0, 0, 4) -- Start at 0 width
+
+local fillTween = TweenService:Create(Bar, TweenInfo.new(
+	5, -- Duration in seconds
+	Enum.EasingStyle.Linear, -- Smooth, even progress
+	Enum.EasingDirection.Out
+	), {
+		Size = UDim2.new(0, 274, 0, 4) -- End at full width (274 px)
+	})
+
+fillTween:Play()
+
+function HideFrame()
+	tweenOut:Play()
+end
+
+
+ShowFrame()
+
+
+
+
+
+Sound:Play()
+wait(5)
+HideFrame()
+Swipe:Play()
+wait(2)
+NovaZNotSupported:Destroy()
